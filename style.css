@@ -1,0 +1,104 @@
+body {
+
+	background: #F4F4F4;
+
+	margin: 0;
+	padding: 0;
+
+}
+
+#dontForgetHeader {
+
+	margin: 0 auto;
+	margin-top: 3em;
+
+	color: #B7B7B7;
+	font-family: "Lucida Sans Unicode";
+
+	text-align: center;
+
+}
+
+#pagesForLater {
+
+	margin: 10em auto;
+
+	text-align: center;
+
+	max-width: 750px;
+
+}
+
+.pagePreviewFigure {
+
+	margin: 0 20px;
+	padding: 0;
+
+	display: inline-block;
+	vertical-align: top;
+
+	position: relative;
+
+}
+
+.pagePreviewRemoveBut {
+
+	display: none;
+
+	cursor: pointer;
+
+	position: absolute;
+	top: 0;
+	right: 0;
+
+	padding: 8px;
+
+	background: none;
+	border: none;
+
+	font-size: 1.4em;
+
+	color: #6E6E6E;
+
+}
+
+.pagePreviewRemoveBut:hover {
+
+	color: #4D4D4D;
+}
+
+.pagePreviewRemoveBut:focus {
+
+	outline: none;
+}
+
+.pagePreviewFigCaption {
+
+	margin-top: 1em;
+	margin-bottom: 2em;
+
+	text-align: center;
+	width: 200px;
+
+}
+
+.pagePreviewImage {
+
+	border: 1px solid #BFBFBF;
+	border-radius: 3px;
+
+	box-shadow: 0 0 1px #BFBFBF;
+
+}
+
+.pagePreviewFigure:hover .pagePreviewImage {
+
+	box-shadow: none;
+}
+
+.pagePreviewFigure:hover .pagePreviewRemoveBut {
+
+	display: inline;
+}
+
+

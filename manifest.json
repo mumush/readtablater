@@ -18,6 +18,6 @@
     "scripts": ["background.js"]
   },
 
-  "permissions": ["tabs", "<all_urls>"]
+  "permissions": ["tabs", "<all_urls>", "http://fonts.googleapis.com/", "https://fonts.googleapis.com/"]
 
 }
