@@ -5,6 +5,8 @@ body {
 	margin: 0;
 	padding: 0;
 
+	font-family: "Roboto";
+
 }
 
 #dontForgetHeader {
@@ -12,10 +14,14 @@ body {
 	margin: 0 auto;
 	margin-top: 3em;
 
-	color: #B7B7B7;
-	font-family: "Lucida Sans Unicode";
+	color: #5A5A5A;
 
 	text-align: center;
+
+	font-size: 2.6em;
+	font-weight: 100;
+
+	opacity: .6;
 
 }
 
@@ -26,6 +32,11 @@ body {
 	text-align: center;
 
 	max-width: 750px;
+
+	-webkit-transition: all .7s ease-in-out;
+	-moz-transition: all .7s ease-in-out;
+	-o-transition: all .7s ease-in-out;
+	-ms-transition: all .7s ease-in-out;
 
 }
 
@@ -38,6 +49,8 @@ body {
 	vertical-align: top;
 
 	position: relative;
+
+	line-height: 1.8em;
 
 }
 
@@ -72,6 +85,22 @@ body {
 	outline: none;
 }
 
+.pagePreviewLink {
+
+	text-decoration: none;
+
+	color: #5A5A5A;
+
+	font-size: 1.2em;
+
+}
+
+.pagePreviewLink:hover {
+
+	color: #4D4D4D;
+
+}
+
 .pagePreviewFigCaption {
 
 	margin-top: 1em;
@@ -83,6 +112,9 @@ body {
 }
 
 .pagePreviewImage {
+
+	width: 200px;
+	height: 150px;
 
 	border: 1px solid #BFBFBF;
 	border-radius: 3px;

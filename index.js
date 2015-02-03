@@ -1,23 +1,25 @@
 // index.js
 //
 
-//When the newtab page is first opened, tell background.js that we want all of the urls the user has saved for later
+//When the newtab page is opened, tell background.js that we want all of the pages the user has saved for later
 chrome.runtime.sendMessage({getPagesToDisplay: true}, function(response) {
 
 		addPageImages(response.pagesToDisplay);
 });
 
 
-//Receives an array of pages
-//Each element of the array contains a dictionary with the following keys: {"url", "title", "screenshotData"}
-//Creates an HTML <figure> for each page in the array
+//Receives an object containg an object per each page in storage
+//Page Object Structure: {"full_url": {title: "page_title", screenshotUrl: "src_path_to_screenshot"} }
+//Creates an HTML <figure> for each page object
 function addPageImages(pagesToDisplay) {
 
-	for (index = 0; index < pagesToDisplay.length; index++) { 
-		
-		//alert("Index: " + index + "~ Title: " + pagesToDisplay[index].title);
-		//alert("Screenshot Data: " + pagesToDisplay[index].screenshotData);
-		createUrlFigure(pagesToDisplay[index]);
+	console.log("Pages to Display: " + JSON.stringify(pagesToDisplay));
+
+	for (var url in pagesToDisplay) {
+
+		console.log(url, pagesToDisplay[url]);
+
+		createUrlFigure(url, pagesToDisplay[url].title, pagesToDisplay[url].screenshotUrl);
 	}
 
 }
@@ -28,7 +30,7 @@ function addPageImages(pagesToDisplay) {
 //		<a><img></a>
 //		<figcaption></figcaption>
 //	</figure>
-function createUrlFigure(page) {
+function createUrlFigure(url, title, imageUrl) {
 
 	//Create a <figure> tag
 	var pagePreviewFigure = document.createElement("figure");
@@ -36,27 +38,26 @@ function createUrlFigure(page) {
 
 	//Create a <figcaption> tag
 	var pagePreviewFigCaption = document.createElement("figcaption");
-	pagePreviewFigCaption.innerHTML = page.title
+	pagePreviewFigCaption.innerHTML = title
 	pagePreviewFigCaption.className = "pagePreviewFigCaption"
 
 	//Create an <a> tag
 	var pagePreviewLink = document.createElement("a");
-	pagePreviewLink.setAttribute("href", page.url);
+	pagePreviewLink.setAttribute("href", url);
 	pagePreviewLink.className = "pagePreviewLink"
 
 	//Create an <img> tag
 	var pageImageElement = document.createElement("img");
-	pageImageElement.setAttribute("src", page.screenshotData);
+	pageImageElement.setAttribute("src", imageUrl);
 	pageImageElement.setAttribute("height", "150");
 	pageImageElement.setAttribute("width", "200");
-	pageImageElement.setAttribute("alt", page.title);
+	pageImageElement.setAttribute("alt", title);
 	pageImageElement.className = "pagePreviewImage"
 
-	//Insert the img element into the a tag --> <a><img></a>
+	//Insert the img and figcaption elements into the a tag --> <a><img><figcaption></figcaption></a>
 	pagePreviewLink.appendChild(pageImageElement);
+	pagePreviewLink.appendChild(pagePreviewFigCaption);
 
-	//Insert the a and figcaption elements into the figure element --> <figure><a></a><figcaption></figcaption></figure>
-	
 	var pagePreviewRemoveBut = document.createElement("button");
 	pagePreviewRemoveBut.innerHTML = "&#10005;";
 	pagePreviewRemoveBut.className = "pagePreviewRemoveBut";
@@ -64,10 +65,11 @@ function createUrlFigure(page) {
 	//add an event listener to react when the button has been clicked
 	pagePreviewRemoveBut.addEventListener('click', removePage);
 
+
 	pagePreviewFigure.appendChild(pagePreviewRemoveBut);
 
+	//Insert the a element into the figure element --> <figure><a></a></figure>
 	pagePreviewFigure.appendChild(pagePreviewLink);
-	pagePreviewFigure.appendChild(pagePreviewFigCaption)
 
 	//Finally insert the figure element into the "pagesForLater" div
 	document.getElementById("pagesForLater").appendChild(pagePreviewFigure);
@@ -86,7 +88,6 @@ function removePage(event) {
 	//passed along in message to background.js
 	var link = parentFigure.getElementsByClassName("pagePreviewLink")[0];
 	var linkUrl = link.getAttribute("href");
-	alert("URL to Remove: " + linkUrl);
 
 	//Remove each of the children inside the parent <figure> element
 	var firstChildOfFigure = parentFigure.firstChild;
@@ -101,11 +102,12 @@ function removePage(event) {
 	//Now remove the parent figure element
 	parentFigure.remove();
 
-	//Send a message to background.js letting know that we have removed a page
-	//and want to remove the url from the backend array in background.js
+	//Send a message to background.js letting know that we have visually 
+	//removed a page and want to remove the url from the backend array in background.js
 	chrome.runtime.sendMessage({removePage: true, urlToRemove: linkUrl}, function(response) {
 
-		alert("Page Removed: " + response.pageRemoved);
+		console.log("Page Removed: " + response.pageRemoved);
+
 	});
 
 }
