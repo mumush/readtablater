@@ -1,11 +1,19 @@
+@font-face {
+	font-family: "Roboto-Light";
+	src: url("fonts/roboto-light.ttf");
+}
+@font-face {
+	font-family: "Roboto-Thin";
+	src: url("fonts/roboto-thin.ttf");
+	font-weight: thin;
+}
+
 body {
 
 	background: #F4F4F4;
 
 	margin: 0;
 	padding: 0;
-
-	font-family: "Roboto";
 
 }
 
@@ -19,7 +27,7 @@ body {
 	text-align: center;
 
 	font-size: 2.6em;
-	font-weight: 100;
+	font-family: "Roboto-Thin";
 
 	opacity: .6;
 
@@ -32,11 +40,6 @@ body {
 	text-align: center;
 
 	max-width: 750px;
-
-	-webkit-transition: all .7s ease-in-out;
-	-moz-transition: all .7s ease-in-out;
-	-o-transition: all .7s ease-in-out;
-	-ms-transition: all .7s ease-in-out;
 
 }
 
@@ -56,7 +59,8 @@ body {
 
 .pagePreviewRemoveBut {
 
-	display: none;
+	opacity: 0;
+	visibility: hidden;
 
 	cursor: pointer;
 
@@ -72,6 +76,9 @@ body {
 	font-size: 1.4em;
 
 	color: #6E6E6E;
+
+
+	transition: opacity .3s ease-in-out;
 
 }
 
@@ -92,6 +99,7 @@ body {
 	color: #5A5A5A;
 
 	font-size: 1.2em;
+	font-family: "Roboto-Light";
 
 }
 
@@ -130,7 +138,8 @@ body {
 
 .pagePreviewFigure:hover .pagePreviewRemoveBut {
 
-	display: inline;
+	visibility: visible;
+	opacity: 1;
 }
 
 
