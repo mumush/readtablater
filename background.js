@@ -109,7 +109,7 @@ function getTabData(tab, isNew) {
 	}
 	else {
 
-		alert("You already have this page stored.");
+		console.log("You already have this page stored.");
 	}
 
 }
@@ -125,6 +125,7 @@ function addPageToStore(url, pageData) {
 	chrome.storage.local.set(pageObject, function() {
 		// Notify that we saved.
 		console.log("Page Added!");
+
 	});
 }
 
