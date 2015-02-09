@@ -1,8 +1,9 @@
 // index.js
+//
+
 
 
 init()
-
 
 
 
@@ -41,11 +42,7 @@ function init() {
 //Creates an HTML <figure> for each page object
 function addPageImages(pagesToDisplay) {
 
-	console.log("Pages to Display: " + JSON.stringify(pagesToDisplay));
-
 	for (var url in pagesToDisplay) {
-
-		console.log(url, pagesToDisplay[url]);
 
 		createUrlFigure(url, pagesToDisplay[url].title, pagesToDisplay[url].screenshotUrl);
 	}
@@ -134,7 +131,7 @@ function removePage(event) {
 	//removed a page and want to remove the url from the backend array in background.js
 	chrome.runtime.sendMessage({removePage: true, urlToRemove: linkUrl}, function(response) {
 
-		console.log("Page Removed: " + response.pageRemoved);
+		//console.log("Page Removed: " + response.pageRemoved);
 
 	});
 

@@ -43,8 +43,6 @@ function getPagesFromStore(getPagesResponseCallback) {
 		}
 		else {
 
-			console.log("Pages Gotten: " + JSON.stringify(responsePages));
-
 			getPagesResponseCallback({pagesToDisplay: responsePages});
 
 		}
@@ -58,8 +56,6 @@ function removePageFromStore(urlToRemove, removePageResponse) {
 
 	chrome.storage.local.remove(urlToRemove, function(response) {
 
-		console.log("Page removed.");
-
 		removePageResponse({pageRemoved: true});
 	});
 
@@ -72,13 +68,10 @@ function checkIfTabIsPinned(tab, callback) {
 
 	chrome.storage.local.get(tab.url, function(pageResponse) {
 
-		console.log(Object.getOwnPropertyNames(pageResponse).length);
-
 		if( Object.getOwnPropertyNames(pageResponse).length == 0 ) {
 			callback(tab, true);
 		}
 		else {
-			console.log(JSON.stringify(pageResponse));
 			callback(tab, false);
 		}
 
@@ -98,18 +91,13 @@ function getTabData(tab, isNew) {
 
 			var pageData = {"title": tab.title, "screenshotUrl": dataUrl};
 
-			console.log("key length: " + JSON.stringify(tab.url).length);
-			console.log("screenshotUrl length: " + JSON.stringify(dataUrl).length);
-
-			console.log("Page Data: " + JSON.stringify(pageData));
-
 			addPageToStore(tab.url, pageData);
 		});
 
 	}
 	else {
 
-		console.log("You already have this page stored.");
+		//console.log("You already have this page stored.");
 	}
 
 }
@@ -123,13 +111,14 @@ function addPageToStore(url, pageData) {
 	pageObject[url] = pageData;
 
 	chrome.storage.local.set(pageObject, function() {
-		// Notify that we saved.
-		console.log("Page Added!");
 
+		//console.log("Page Added!");
 	});
 }
 
 
+//Access Quotes On Design API and grabs a quote by a designer
+//Returns a JSON Object
 function getRandomQuote(callback) {
 
 	var url = "http://quotesondesign.com/api/3.0/api-3.0.json";
@@ -142,7 +131,6 @@ function getRandomQuote(callback) {
 		if (xmlhttp.readyState == XMLHttpRequest.DONE && xmlhttp.status == 200){
 
 			callback({quoteToDisplay: xmlhttp.responseText});
-
 		}
 	}
 
