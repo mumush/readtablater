@@ -1,12 +1,40 @@
 // index.js
-//
+
+
+init()
+
+
+
 
 //When the newtab page is opened, tell background.js that we want all of the pages the user has saved for later
-chrome.runtime.sendMessage({getPagesToDisplay: true}, function(response) {
+function init() {
 
-		addPageImages(response.pagesToDisplay);
-});
+	chrome.runtime.sendMessage({getPagesToDisplay: true}, function(response) {
 
+		if( response.hasOwnProperty("pagesToDisplay") ) { //we got pages back from the store
+
+			clearHeaderText();
+
+			document.getElementById("dontForgetHeader").innerHTML = "Don't forget about...";
+
+			addPageImages(response.pagesToDisplay);
+
+		}
+		else if( response.hasOwnProperty("quoteToDisplay") ) { //no pages stored, show a quote instead
+
+			var quoteObj = JSON.parse(response.quoteToDisplay);
+
+			clearHeaderText();
+
+			document.getElementById("quoteText").innerHTML = quoteObj.quote;
+			document.getElementById("quoteAuthor").innerHTML = "- " + quoteObj.author;
+		}
+
+		
+
+	});
+
+}
 
 //Receives an object containg an object per each page in storage
 //Page Object Structure: {"full_url": {title: "page_title", screenshotUrl: "src_path_to_screenshot"} }
@@ -109,6 +137,15 @@ function removePage(event) {
 		console.log("Page Removed: " + response.pageRemoved);
 
 	});
+
+}
+
+function clearHeaderText() {
+
+	document.getElementById("dontForgetHeader").innerHTML = "";
+
+	document.getElementById("quoteText").innerHTML = "";
+	document.getElementById("quoteAuthor").innerHTML = "";
 
 }
 

@@ -14,13 +14,53 @@ body {
 
 	margin: 0;
 	padding: 0;
+	padding: 6em;
 
 }
 
 #dontForgetHeader {
 
 	margin: 0 auto;
+
+	color: #5A5A5A;
+
+	text-align: center;
+
+	font-size: 2.5em;
+	font-family: "Roboto-Thin";
+
+	opacity: .6;
+
+}
+
+#quoteText {
+
+	margin: 0 auto;
+	margin-top: 2em;
+	padding: 0 2em;
+
+	max-width: 600px;
+	line-height: 1.5em;
+
+	color: #5A5A5A;
+
+	text-align: center;
+
+	font-size: 2.8em;
+	font-family: "Roboto-Thin";
+
+	opacity: .6;
+
+}
+
+#quoteAuthor {
+
+	margin: 0 auto;
 	margin-top: 3em;
+	padding: 0 2em;
+
+	max-width: 400px;
+	line-height: 1.5em;
 
 	color: #5A5A5A;
 
@@ -35,7 +75,7 @@ body {
 
 #pagesForLater {
 
-	margin: 10em auto;
+	margin: 0 auto;
 
 	text-align: center;
 

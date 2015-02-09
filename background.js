@@ -32,13 +32,22 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 
 //Gets all of the pages from local storage
 //Sends a response object containing all pages in the store back to index.js 
-function getPagesFromStore(getPagesResponse) {
+function getPagesFromStore(getPagesResponseCallback) {
 
 	chrome.storage.local.get(null, function(responsePages) {
 
-		console.log("Pages Gotten: " + JSON.stringify(responsePages));
+		if( Object.getOwnPropertyNames(responsePages).length == 0 ) { //no pages have been saved
 
-		getPagesResponse({pagesToDisplay: responsePages});
+			getRandomQuote(getPagesResponseCallback);
+
+		}
+		else {
+
+			console.log("Pages Gotten: " + JSON.stringify(responsePages));
+
+			getPagesResponseCallback({pagesToDisplay: responsePages});
+
+		}
 
 	});
 }
@@ -117,6 +126,28 @@ function addPageToStore(url, pageData) {
 		// Notify that we saved.
 		console.log("Page Added!");
 	});
+}
+
+
+function getRandomQuote(callback) {
+
+	var url = "http://quotesondesign.com/api/3.0/api-3.0.json";
+
+	var xmlhttp;
+	// compatible with IE7+, Firefox, Chrome, Opera, Safari
+	xmlhttp = new XMLHttpRequest();
+
+	xmlhttp.onreadystatechange = function() {
+		if (xmlhttp.readyState == XMLHttpRequest.DONE && xmlhttp.status == 200){
+
+			callback({quoteToDisplay: xmlhttp.responseText});
+
+		}
+	}
+
+	xmlhttp.open("GET", url, true);
+	xmlhttp.send();
+
 }
 
 
